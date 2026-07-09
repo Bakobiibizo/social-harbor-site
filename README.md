@@ -1,70 +1,30 @@
-# Social Harbor — Landing Page & Deep Link Handler
+# Harbor Website and Deep Link Handler
 
-Production website built for [Harbor](https://github.com/Bakobiibizo/harbor), a decentralized social network.
-**Live site → [social-harbor.com](https://www.social-harbor.com)**
+Static production website for [Harbor](https://github.com/Bakobiibizo/harbor), a local-first peer-to-peer communication app.
 
----
-
-## What This Is
-
-This repo contains two things delivered as a single contract:
-
-### 1. Landing Page (`index.html`)
-A brand-compliant marketing page for the Harbor app — introducing the product, communicating its value, and directing users to download the app on their platform.
-
-### 2. Deep Link Handler (`/add-friend`)
-A redirect page that intercepts Harbor deep links shared in web chats and messaging apps. When a user clicks a Harbor friend-request link:
-
-- On **desktop** — the page opens the Harbor desktop app directly and displays the friend request data
-- On **mobile** — the page shows platform-specific download buttons (with OS detection) so the user can install Harbor first
-
-Deep links also include **Open Graph meta tags** so when pasted into a web chat (Slack, Discord, iMessage, etc.) they render a preview with a thumbnail image and short description.
-
----
-
-## Tech Stack
-
-| | |
-|---|---|
-| HTML / CSS / Vanilla JS | No framework — delivered as a lightweight static site |
-| Vercel | Deployment and routing (`vercel.json`) |
-| Open Graph | SEO meta tags for rich link previews |
-
----
-
-## My Role
-
-Sole developer on this feature. Delivered from a written requirements list with full independence on technical decisions.
-
-- Built and styled the landing page following the owner's brand guidelines
-- Implemented the deep link routing logic in JavaScript
-- Added Open Graph meta tags for rich preview support across messaging platforms
-- Configured Vercel routing to handle the `/add-friend` path correctly
-- Coordinated with the Harbor Rust backend team on the deep link URL structure
-
----
+The repository contains the product site and the `/add-friend` web-to-app deep link handler. Vercel routing serves the handler for encoded contact paths while preserving a lightweight, framework-free deployment.
 
 ## Project Structure
 
-```
+```text
 social-harbor-site/
-├── index.html          # Main landing page
-├── add-friend/         # Deep link redirect handler
-├── assets/             # Images and brand assets
-├── css/                # Stylesheets
-├── js/                 # JavaScript (deep link logic, OS detection)
-└── vercel.json         # Routing config
+├── index.html          # Product site
+├── add-friend/         # Contact-link handler
+├── privacy/            # Privacy disclosures
+├── assets/             # Brand and social-preview assets
+├── css/                # Shared styles
+├── js/                 # Contact-link decoding and app launch
+└── vercel.json         # Routing, headers, and caching
 ```
 
----
+## Local Preview
 
-## Related
+```bash
+python3 -m http.server 4173
+```
 
-- [Harbor app repo](https://github.com/Bakobiibizo/harbor) — the desktop client this site supports (Rust)
+Then open `http://localhost:4173`.
 
----
+## Deployment
 
-## Author
-
-**John Solarte** — Junior Full-Stack Developer based in Kelowna, BC
-[github.com/johned2025](https://github.com/johned2025) · [Portfolio](https://john-solarte-portfolio.netlify.app/) · [LinkedIn](https://www.linkedin.com/in/john-solarte/)
+Import this repository into Vercel as a static site. No build command or environment variables are required.

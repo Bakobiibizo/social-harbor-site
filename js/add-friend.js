@@ -148,26 +148,4 @@
     });
   }
 
-  // ── 5. Platform detection — highlight the correct download button ─────────
-  //
-  // We check navigator.userAgent to determine the OS and add the
-  // 'highlighted' class to the matching download button so it stands out.
-
-  function detectPlatform() {
-    const ua = navigator.userAgent;
-    if (/Win/i.test(ua))     return 'windows';
-    if (/Mac/i.test(ua))     return 'macos';
-    if (/Linux/i.test(ua))   return 'linux';
-    return null;
-  }
-
-  const platform = detectPlatform();
-  if (platform) {
-    // Apply to both the valid state and invalid state download buttons
-    const btns = document.querySelectorAll('#dl-' + platform);
-    btns.forEach(function (btn) {
-      btn.classList.add('highlighted');
-    });
-  }
-
 })();

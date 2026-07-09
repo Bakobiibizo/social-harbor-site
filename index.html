@@ -1,157 +1,146 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Harbor — Decentralized P2P Chat</title>
-  <meta name="description" content="Harbor is a free, open-source, decentralized chat app. Your data stays on your device. No servers, no tracking." />
-
-  <!-- OG / Social preview -->
-  <meta property="og:type"        content="website" />
-  <meta property="og:url"         content="https://social-harbor.com/" />
-  <meta property="og:title"       content="Harbor — Decentralized P2P Chat" />
-  <meta property="og:description" content="A free, open-source chat app where your data stays on your device. No servers, no tracking." />
-  <meta property="og:image"       content="https://social-harbor.com/assets/og-card.png" />
-  <meta name="twitter:card"       content="summary_large_image" />
-
-  <link rel="icon" type="image/png" href="assets/harbor-icon-dark-alpha.png" />
-  <link rel="stylesheet" href="css/style.css" />
-  <script src="js/config.js"></script>
-  <script>
-    document.querySelector('meta[property="og:url"]').content = SITE_BASE_URL + '/';
-    document.querySelector('meta[property="og:image"]').content = SITE_BASE_URL + '/assets/og-card.png';
-  </script>
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Harbor | Private peer-to-peer communication</title>
+  <meta name="description" content="Harbor is an open-source, local-first desktop app for encrypted messaging, voice, video, and group calls.">
+  <meta name="theme-color" content="#f5f7fa">
+  <link rel="canonical" href="https://social-harbor.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://social-harbor.com/">
+  <meta property="og:title" content="Harbor | Private peer-to-peer communication">
+  <meta property="og:description" content="Encrypted messages and calls, owned by the people in the conversation.">
+  <meta property="og:image" content="https://social-harbor.com/assets/og-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="assets/harbor-icon-dark-alpha.png">
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
 </head>
 <body>
-
-  <!-- ── Header ──────────────────────────────────────────── -->
   <header class="site-header">
-    <div class="container">
-      <img src="assets/harbor-icon-dark-alpha.png" alt="Harbor" class="site-logo" />
-      <nav class="site-nav">
-        <a href="#features">Features</a>
-        <a href="#download">Download</a>
-        <a href="https://github.com/bakobiibizo/harbor" target="_blank" rel="noopener">GitHub</a>
+    <div class="container nav-row">
+      <a class="brand" href="#top" aria-label="Harbor home">
+        <img src="assets/harbor-icon-dark-alpha.png" alt="" width="48" height="34">
+        <span>Harbor</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="#product">Product</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#beta">Beta</a>
+        <a class="nav-github" href="https://github.com/Bakobiibizo/harbor" target="_blank" rel="noopener noreferrer"><i data-lucide="github"></i><span>Source</span></a>
       </nav>
     </div>
   </header>
 
-  <main>
-
-    <!-- ── Hero ────────────────────────────────────────────── -->
+  <main id="top">
     <section class="hero">
-      <div class="container">
-        <img src="assets/harbor-logo-dark-alpha.png" alt="Harbor" class="hero-logo" />
-        <p class="display hero-tagline">
-          Chat freely.<br />
-          <span class="accent">No servers. No surveillance.</span>
-        </p>
-        <p class="hero-description">
-          Harbor is a free, open-source, peer-to-peer chat app.
-          Your messages and data stay on your device —
-          no company can read them, sell them, or take them away.
-        </p>
-        <div class="hero-actions">
-          <a href="#download" class="btn btn-primary btn-lg">Download Harbor</a>
-          <a href="https://github.com/bakobiibizo/harbor" target="_blank" rel="noopener" class="btn btn-secondary btn-lg">View on GitHub</a>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="status-line"><span class="status-dot"></span> Windows beta now available</div>
+          <h1>Harbor</h1>
+          <p class="hero-lede">Private conversations without a platform in the middle.</p>
+          <p class="hero-detail">Message, call, and share directly with the people you trust. Harbor keeps identity and conversation history on your device while encrypted peer-to-peer connections carry the conversation.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://github.com/Bakobiibizo/harbor/releases" target="_blank" rel="noopener noreferrer"><i data-lucide="download"></i> Get the Windows beta</a>
+            <a class="btn btn-secondary" href="https://github.com/Bakobiibizo/harbor" target="_blank" rel="noopener noreferrer"><i data-lucide="github"></i> View source</a>
+          </div>
+          <p class="install-note"><i data-lucide="shield-alert"></i> Beta builds are currently unsigned. Windows SmartScreen may show a warning.</p>
+        </div>
+
+        <div class="product-window" aria-label="Preview of a Harbor group call">
+          <div class="window-bar">
+            <span class="window-brand"><img src="assets/harbor-icon-dark-alpha.png" alt="" width="30" height="22"> Harbor</span>
+            <span class="window-room"><span class="live-dot"></span> Design room</span>
+            <span class="window-controls"><i data-lucide="minus"></i><i data-lucide="square"></i><i data-lucide="x"></i></span>
+          </div>
+          <div class="call-layout">
+            <aside class="call-sidebar">
+              <span class="sidebar-title">Conversations</span>
+              <span class="conversation active"><span class="avatar coral">R</span><span><strong>Design room</strong><small>3 participants</small></span></span>
+              <span class="conversation"><span class="avatar blue">M</span><span><strong>Maya</strong><small>See you at 2:00</small></span></span>
+              <span class="conversation"><span class="avatar green">J</span><span><strong>Jordan</strong><small>Connected</small></span></span>
+            </aside>
+            <div class="call-stage">
+              <div class="call-heading"><span><strong>Design room</strong><small>End-to-end encrypted</small></span><i data-lucide="shield-check"></i></div>
+              <div class="video-grid">
+                <div class="video-tile tile-one"><span class="portrait">R</span><small>Richard</small></div>
+                <div class="video-tile tile-two"><span class="portrait">M</span><small>Maya</small></div>
+                <div class="video-tile tile-three"><span class="portrait">J</span><small>Jordan</small></div>
+              </div>
+              <div class="call-actions" aria-hidden="true"><span><i data-lucide="mic"></i></span><span><i data-lucide="video"></i></span><span><i data-lucide="monitor-up"></i></span><span class="hangup"><i data-lucide="phone-off"></i></span></div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ── Features ─────────────────────────────────────────── -->
-    <section class="features" id="features">
+    <section class="proof-strip" aria-label="Harbor principles">
+      <div class="container proof-grid">
+        <span><i data-lucide="lock-keyhole"></i><strong>Encrypted</strong><small>Messages and calls</small></span>
+        <span><i data-lucide="hard-drive"></i><strong>Local-first</strong><small>Your history, your device</small></span>
+        <span><i data-lucide="users"></i><strong>Peer-to-peer</strong><small>Direct when the network permits</small></span>
+        <span><i data-lucide="code-2"></i><strong>Open source</strong><small>Publicly inspectable</small></span>
+      </div>
+    </section>
+
+    <section class="product-section" id="product">
       <div class="container">
-        <div class="features-grid">
-
-          <div class="feature-card">
-            <div class="feature-icon"><i data-lucide="lock"></i></div>
-            <h3>End-to-End Encrypted</h3>
-            <p>Every message is encrypted using Ed25519 and X25519 keys that never leave your device. Only you and your contact can read your conversations.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon"><i data-lucide="server-off"></i></div>
-            <h3>No Central Servers</h3>
-            <p>Harbor connects peers directly using libp2p. There is no company server routing your messages — the network belongs to its users.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon"><i data-lucide="hard-drive"></i></div>
-            <h3>Local-First</h3>
-            <p>Your data is stored on your own machine in a local SQLite database. You own your history, your contacts, and your identity.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon"><i data-lucide="github"></i></div>
-            <h3>Free & Open Source</h3>
-            <p>Harbor is fully open source. Inspect the code, contribute, or fork it. No subscriptions, no ads, no freemium limits.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon"><i data-lucide="monitor"></i></div>
-            <h3>Desktop Native</h3>
-            <p>Built with Tauri, Harbor runs as a lightweight native app on Windows, macOS, and Linux — not a browser tab dressed up as an app.</p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon"><i data-lucide="share-2"></i></div>
-            <h3>Easy Contact Sharing</h3>
-            <p>Share a simple link to add contacts. No account creation, no phone number required — just send the link and connect.</p>
-          </div>
-
+        <div class="section-heading">
+          <span class="eyebrow">The product</span>
+          <h2>One private space for your people.</h2>
+          <p>Harbor combines everyday communication with a local-first identity. No phone number, advertising profile, or social graph sale required.</p>
+        </div>
+        <div class="feature-grid">
+          <article><i data-lucide="messages-square"></i><h3>Messages that stay yours</h3><p>Conversation history is stored locally in SQLite and encrypted in transit between peers.</p></article>
+          <article><i data-lucide="video"></i><h3>Voice and video calls</h3><p>Start one-to-one or group WebRTC calls with clear participant and connection state.</p></article>
+          <article><i data-lucide="contact-round"></i><h3>Portable identity</h3><p>Create an identity on your device and connect through shareable contact links instead of a central account.</p></article>
+          <article><i data-lucide="panel-top"></i><h3>Spaces beyond chat</h3><p>Share updates and collaborate through local-first social and board views within the same desktop app.</p></article>
         </div>
       </div>
     </section>
 
-    <!-- ── Download ─────────────────────────────────────────── -->
-    <section class="downloads" id="download">
-      <div class="container">
-        <h2>Download Harbor</h2>
-        <p class="subtitle">Free for Windows, macOS, and Linux.</p>
-        <div class="download-buttons">
-          <a href="assets/downloads/Harbor-windows-setup.msi" download class="download-btn" id="dl-windows">
-            <span class="platform-icon"><i data-lucide="monitor"></i></span>
-            <span class="platform-name">Windows</span>
-            <span class="platform-note">.msi installer</span>
-          </a>
-          <a href="https://github.com/bakobiibizo/harbor/releases/latest" target="_blank" rel="noopener" class="download-btn" id="dl-macos">
-            <span class="platform-icon"><i data-lucide="apple"></i></span>
-            <span class="platform-name">macOS</span>
-            <span class="platform-note">.dmg installer</span>
-          </a>
-          <a href="assets/downloads/Harbor-linux.AppImage" download class="download-btn" id="dl-linux">
-            <span class="platform-icon"><i data-lucide="terminal"></i></span>
-            <span class="platform-name">Linux</span>
-            <span class="platform-note">.AppImage</span>
-          </a>
+    <section class="privacy-band" id="privacy">
+      <div class="container privacy-grid">
+        <div>
+          <span class="eyebrow">How it works</span>
+          <h2>Infrastructure helps peers find each other. It does not become the conversation.</h2>
         </div>
+        <div class="flow">
+          <span><i data-lucide="laptop"></i><strong>Your device</strong><small>Identity and local history</small></span>
+          <i data-lucide="arrow-right" class="flow-arrow"></i>
+          <span><i data-lucide="radio-tower"></i><strong>Relay assisted</strong><small>Discovery and connectivity</small></span>
+          <i data-lucide="arrow-right" class="flow-arrow"></i>
+          <span><i data-lucide="laptop"></i><strong>Their device</strong><small>Encrypted peer connection</small></span>
+        </div>
+        <p class="privacy-copy">Harbor uses relay services when direct connections are unavailable. Message content and call media remain end-to-end encrypted; relay operators may still observe operational metadata such as IP addresses, timing, and traffic volume. The architecture and threat model are open for inspection.</p>
+        <a class="text-link" href="https://github.com/Bakobiibizo/harbor" target="_blank" rel="noopener noreferrer">Inspect the implementation <i data-lucide="arrow-up-right"></i></a>
       </div>
     </section>
 
+    <section class="beta-section" id="beta">
+      <div class="container beta-grid">
+        <div>
+          <span class="eyebrow">Private beta</span>
+          <h2>Ready for real conversations.</h2>
+          <p>The current beta targets Windows and includes messaging plus one-to-one and group calls. Releases, checksums, known limitations, and source are published together on GitHub.</p>
+        </div>
+        <div class="beta-actions">
+          <a class="btn btn-primary" href="https://github.com/Bakobiibizo/harbor/releases" target="_blank" rel="noopener noreferrer"><i data-lucide="monitor-down"></i> Windows releases</a>
+          <a class="btn btn-secondary" href="https://github.com/Bakobiibizo/harbor/issues" target="_blank" rel="noopener noreferrer"><i data-lucide="message-square-warning"></i> Report an issue</a>
+          <small>macOS and Linux builds are not part of the currently validated beta.</small>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- ── Footer ───────────────────────────────────────────── -->
   <footer class="site-footer">
-    <div class="container">
-      <span class="footer-copy">© 2026 Hydra Dynamix Inc. — Harbor is open source.</span>
-      <nav class="footer-links">
-        <a href="https://github.com/bakobiibizo/harbor" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://github.com/bakobiibizo/harbor/blob/main/README.md" target="_blank" rel="noopener">Docs</a>
-        <a href="/privacy" >Privacy</a>
-      </nav>
+    <div class="container footer-row">
+      <a class="brand" href="#top"><img src="assets/harbor-icon-dark-alpha.png" alt="" width="42" height="30"><span>Harbor</span></a>
+      <span class="footer-copy">&copy; 2026 Hydra Dynamix Inc. Open-source software.</span>
+      <nav class="footer-links" aria-label="Footer navigation"><a href="/privacy/">Privacy</a><a href="https://github.com/Bakobiibizo/harbor" target="_blank" rel="noopener noreferrer">GitHub</a></nav>
     </div>
   </footer>
-
-  <script>
-    lucide.createIcons();
-
-    // Highlight the download button that matches the user's OS
-    const ua = navigator.userAgent;
-    if (/Win/i.test(ua))        document.getElementById('dl-windows')?.classList.add('highlighted');
-    else if (/Mac/i.test(ua))   document.getElementById('dl-macos')?.classList.add('highlighted');
-    else if (/Linux/i.test(ua)) document.getElementById('dl-linux')?.classList.add('highlighted');
-  </script>
-
+  <script>window.addEventListener('DOMContentLoaded', function () { if (window.lucide) lucide.createIcons(); });</script>
 </body>
 </html>
