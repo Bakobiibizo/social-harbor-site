@@ -39,15 +39,15 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <div class="status-line"><span class="status-dot"></span> Windows beta now available</div>
+          <div class="status-line"><span class="status-dot"></span> Beta available for Windows, macOS, and Linux</div>
           <h1>Harbor</h1>
           <p class="hero-lede">Private conversations without a platform in the middle.</p>
           <p class="hero-detail">Message, call, and share directly with the people you trust. Harbor keeps identity and conversation history on your device while encrypted peer-to-peer connections carry the conversation.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="https://github.com/Bakobiibizo/harbor/releases" target="_blank" rel="noopener noreferrer"><i data-lucide="download"></i> Get the Windows beta</a>
+            <a class="btn btn-primary" href="#beta"><i data-lucide="download"></i> Download Harbor</a>
             <a class="btn btn-secondary" href="https://github.com/Bakobiibizo/harbor" target="_blank" rel="noopener noreferrer"><i data-lucide="github"></i> View source</a>
           </div>
-          <p class="install-note"><i data-lucide="shield-alert"></i> Beta builds are currently unsigned. Windows SmartScreen may show a warning.</p>
+          <p class="install-note"><i data-lucide="shield-check"></i> Harbor releases include signed updater artifacts for every supported platform. Windows SmartScreen or macOS Gatekeeper may still warn because the beta is not yet store-distributed or notarized.</p>
         </div>
 
         <div class="product-window" aria-label="Preview of a Harbor group call">
@@ -125,12 +125,18 @@
         <div>
           <span class="eyebrow">Private beta</span>
           <h2>Ready for real conversations.</h2>
-          <p>The current beta targets Windows and includes messaging plus one-to-one and group calls. Releases, checksums, known limitations, and source are published together on GitHub.</p>
+          <p>The current Harbor beta includes messaging plus one-to-one and group calls, with native builds for Windows, macOS, and Linux. Choose the package for your platform below.</p>
         </div>
-        <div class="beta-actions">
-          <a class="btn btn-primary" href="https://github.com/Bakobiibizo/harbor/releases" target="_blank" rel="noopener noreferrer"><i data-lucide="monitor-down"></i> Windows releases</a>
+        <div class="beta-actions" aria-label="Harbor downloads">
+          <a class="btn btn-primary" href="/download/?platform=windows"><i data-lucide="monitor-down"></i> Windows x64</a>
+          <a class="btn btn-secondary" href="/download/?platform=mac-arm"><i data-lucide="laptop"></i> macOS Apple Silicon</a>
+          <a class="btn btn-secondary" href="/download/?platform=mac-intel"><i data-lucide="laptop"></i> macOS Intel</a>
+          <a class="btn btn-secondary" href="/download/?platform=linux"><i data-lucide="package"></i> Linux AppImage</a>
+          <div class="package-links"><a href="/download/?platform=deb">Debian / Ubuntu (.deb)</a><span aria-hidden="true">·</span><a href="/download/?platform=rpm">Fedora / RPM</a></div>
+          <div class="install-commands"><code>curl -fsSL https://social-harbor.com/install.sh | sh</code><code>irm https://social-harbor.com/install.ps1 | iex</code></div>
+          <a class="text-link release-notes-link" href="https://github.com/Bakobiibizo/harbor/releases" target="_blank" rel="noopener noreferrer">Release notes and signatures <i data-lucide="arrow-up-right"></i></a>
           <a class="btn btn-secondary" href="https://github.com/Bakobiibizo/harbor/issues" target="_blank" rel="noopener noreferrer"><i data-lucide="message-square-warning"></i> Report an issue</a>
-          <small>macOS and Linux builds are not part of the currently validated beta.</small>
+          <small>Latest published beta · x64 Linux and Windows · Apple Silicon and Intel macOS</small>
         </div>
       </div>
     </section>
