@@ -9,7 +9,27 @@
  *  5. Highlight the correct download button for the user's platform
  */
 
-(function () {
+(function (root, factory) {
+  const api = factory();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  if (root && root.document) api.initialize(root);
+})(typeof window !== 'undefined' ? window : undefined, function () {
+  'use strict';
+
+  const MAX_CONTACT_LENGTH = 8192;
+
+  function contactStringFromLocation(location) {
+    const prefix = '/add-friend/';
+    const index = location.pathname.indexOf(prefix);
+    let value = index >= 0 ? location.pathname.slice(index + prefix.length) : '';
+    try { value = decodeURIComponent(value); } catch (_) { return ''; }
+    if (value.includes('.') || value.includes('/')) value = '';
+    if (!value) {
+      const match = location.search.match(/[?&]c=([^&]*)/);
+      try { value = match ? decodeURIComponent(match[1]) : ''; } catch (_) { return ''; }
+    }
+    return value;
+  }
 
   // ── 1. Extract contact string from URL path ──────────────────────────────
   //
@@ -17,15 +37,33 @@
   // window.location.pathname is something like: /add-friend/eyJtdWx0aWFkZHIi...
   // We split on '/add-friend/' and take everything after it.
 
-  const pathParts = window.location.pathname.split('/add-friend/');
-  let rawContactString = pathParts.length > 1 ? pathParts[1] : '';
+  function decodeContactString(contactString, decodeBase64) {
+    try {
+      if (!contactString || contactString.length > MAX_CONTACT_LENGTH ||
+          !/^[A-Za-z0-9_-]+$/.test(contactString)) return null;
+      const b64 = contactString.replace(/-/g, '+').replace(/_/g, '/');
+      const padded = b64 + '='.repeat((4 - (b64.length % 4)) % 4);
+      const bytes = decodeBase64(padded);
+      const json = typeof TextDecoder === 'undefined'
+        ? decodeURIComponent(Array.from(bytes, c => '%' + c.charCodeAt(0).toString(16).padStart(2, '0')).join(''))
+        : new TextDecoder('utf-8', { fatal: true }).decode(Uint8Array.from(bytes, c => c.charCodeAt(0)));
+      const bundle = JSON.parse(json);
+      if (!bundle || typeof bundle !== 'object' || Array.isArray(bundle) ||
+          typeof bundle.displayName !== 'string' || !bundle.displayName.trim() || bundle.displayName.length > 120 ||
+          typeof bundle.multiaddr !== 'string' || bundle.multiaddr.length > 2048) return null;
+      const peerMatch = bundle.multiaddr.match(/\/p2p\/([^/]+)$/);
+      if (!peerMatch || !/^[A-Za-z0-9]+$/.test(peerMatch[1])) return null;
+      return { displayName: bundle.displayName.trim(), peerId: peerMatch[1], raw: contactString };
+    } catch (_) { return null; }
+  }
+
+  function initialize(window) {
+  const rawContactString = contactStringFromLocation(window.location);
 
   // Discard if the pathname gave us a filename instead of a contact string.
   // This happens in local testing where the URL is /add-friend/index.html?c=...
   // and split('/add-friend/') captures 'index.html' instead of a base64 string.
-  if (rawContactString.includes('.')) {
-    rawContactString = '';
-  }
+
 
   // LOCAL TESTING ONLY — query parameter fallback.
   // Python's static server can't route /add-friend/<contactString> to this file,
@@ -37,10 +75,7 @@
   // Note: we use a regex + decodeURIComponent instead of URLSearchParams.get()
   // because URLSearchParams converts + to spaces (form encoding), which would
   // corrupt base64 strings that contain + characters before atob() can decode them.
-  if (!rawContactString) {
-    const match = window.location.search.match(/[?&]c=([^&]*)/);
-    rawContactString = match ? decodeURIComponent(match[1]) : '';
-  }
+
 
   // ── 2. Decode the contact string ─────────────────────────────────────────
   //
@@ -52,43 +87,7 @@
   //
   // To decode in JS we must reverse those substitutions before calling atob().
 
-  function decodeContactString(contactString) {
-    try {
-      if (!contactString) return null;
-
-      // Restore standard base64 characters from URL-safe variant
-      const b64 = contactString
-        .replace(/-/g, '+')
-        .replace(/_/g, '/');
-
-      // Add = padding so the length is a multiple of 4
-      const padded = b64 + '='.repeat((4 - (b64.length % 4)) % 4);
-
-      // Decode base64 → JSON string → object
-      const json = atob(padded);
-      const bundle = JSON.parse(json);
-
-      // Validate required fields per ContactBundle format
-      if (!bundle.multiaddr || !bundle.displayName) return null;
-
-      // Extract peerId: last segment of the multiaddr after /p2p/
-      const parts = bundle.multiaddr.split('/');
-      const peerId = parts[parts.length - 1];
-
-      return {
-        displayName: bundle.displayName,
-        peerId: peerId,
-        bio: bundle.bio || null,
-        // Preserve the original string to pass to the deep link unchanged
-        raw: contactString,
-      };
-
-    } catch (e) {
-      return null;
-    }
-  }
-
-  const contact = decodeContactString(rawContactString);
+  const contact = decodeContactString(rawContactString, window.atob.bind(window));
 
   // ── 3. Show the correct state ────────────────────────────────────────────
 
@@ -147,5 +146,7 @@
       });
     });
   }
+  }
 
-})();
+  return { MAX_CONTACT_LENGTH, contactStringFromLocation, decodeContactString, initialize };
+});

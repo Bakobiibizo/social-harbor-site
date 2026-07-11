@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Add Contact | Harbor</title>
   <meta name="description" content="Add a contact on Harbor, the private peer-to-peer communication app.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#f5f7fa">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Someone wants to connect with you on Harbor">
   <meta property="og:description" content="Open this contact link in Harbor to connect.">
@@ -12,7 +14,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/png" href="../assets/harbor-icon-dark-alpha.png">
   <link rel="stylesheet" href="../css/style.css">
-  <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script defer src="../js/lucide.min.js"></script>
+  <script defer src="../js/icons.js"></script>
 </head>
 <body>
   <main class="add-friend-page hidden" id="state-valid">
@@ -22,7 +25,7 @@
         <h1><span class="contact-name" id="contact-name">Someone</span> wants to connect with you</h1>
         <p class="peer-id" id="peer-id"></p>
         <div class="add-friend-actions"><button class="btn btn-primary" id="open-in-harbor"><i data-lucide="external-link"></i> Open in Harbor</button></div>
-        <div class="fallback-message" id="fallback-message">Harbor did not appear to open. Install the Windows beta, then return to this link.</div>
+        <div class="fallback-message" id="fallback-message" role="status" aria-live="polite">Harbor did not appear to open. Install the Windows beta, then return to this link.</div>
         <hr class="divider">
         <div class="no-harbor-section">
           <h3>Don't have Harbor yet?</h3>
@@ -44,6 +47,5 @@
     </div>
   </main>
   <script src="../js/add-friend.js"></script>
-  <script>window.addEventListener('DOMContentLoaded', function () { if (window.lucide) lucide.createIcons(); });</script>
 </body>
 </html>
