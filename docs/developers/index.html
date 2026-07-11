@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Harbor for Developers | Build, test, and operate</title>
+  <meta name="description" content="Developer onboarding for building Harbor, running isolated profiles, testing peer workflows, operating relays, and contributing through pull requests.">
+  <link rel="canonical" href="https://social-harbor.com/docs/developers/">
+  <link rel="icon" type="image/png" href="../../assets/harbor-icon-dark-alpha.png"><link rel="stylesheet" href="../../css/style.css"><link rel="stylesheet" href="../../css/docs.css">
+</head>
+<body>
+  <a class="skip-link" href="#guide">Skip to guide</a>
+  <header class="site-header"><div class="container nav-row"><a class="brand" href="/"><img src="../../assets/harbor-icon-dark-alpha.png" alt="" width="48" height="34"><span>Harbor</span></a><nav class="site-nav" aria-label="Documentation navigation"><a href="/">Home</a><a href="/docs/">User guide</a><a href="/docs/developers/" aria-current="page">For developers</a></nav></div></header>
+  <main class="container docs-shell" id="guide">
+    <aside class="docs-sidebar" aria-label="On this page"><strong>For developers</strong><a href="#model">System model</a><a href="#setup">Local setup</a><a href="#profiles">Isolated profiles</a><a href="#relay">Relay and TURN</a><a href="#tests">Validation</a><a href="#workflow">Contribution workflow</a><a href="#release">Release discipline</a><a href="#diagnostics">Safe diagnostics</a></aside>
+    <article class="docs-content">
+      <span class="eyebrow">Harbor for developers</span><h1>Build the system, not just the happy path</h1>
+      <p class="docs-lede">Harbor combines a React and TypeScript interface, a Rust and Tauri backend, libp2p application networking, WebRTC media, local SQLite state, and a standalone relay. This guide gets a contributor from clone to a meaningful multi-profile test.</p>
+
+      <h2 id="model">System model</h2>
+      <div class="docs-grid"><div class="docs-card"><h3>Local identity</h3><p>Ed25519 signing and X25519 agreement keys are encrypted on disk. SQLite is the local source of truth.</p></div><div class="docs-card"><h3>App networking</h3><p>libp2p handles discovery, direct connections, relay circuits, signaling, messages, and synchronization.</p></div><div class="docs-card"><h3>Call media</h3><p>WebRTC transports audio and video. STUN and TURN solve media connectivity and are separate from the Harbor relay.</p></div><div class="docs-card"><h3>Permissions</h3><p>Signed capability grants control Chat, Call, and WallRead behavior between identities.</p></div></div>
+      <figure class="docs-figure"><div class="docs-placeholder"><div><strong>Diagram needed: 11-system-architecture.png</strong><span>Two Harbor clients, local SQLite on each, direct or libp2p relay application path, and separate direct or TURN WebRTC media path.</span></div></div><figcaption>Keep the application relay and media relay visually separate. They solve different problems.</figcaption></figure>
+
+      <h2 id="setup">Local development setup</h2>
+      <h3>Prerequisites</h3><ul><li>Node.js 20 or newer and pnpm 10.</li><li>Stable Rust and Cargo.</li><li>Tauri 2 operating-system prerequisites.</li><li>GitHub CLI for the pull-request workflow.</li></ul>
+      <pre><code>git clone https://github.com/Bakobiibizo/harbor.git
+cd harbor
+pnpm install
+pnpm tauri dev</code></pre>
+      <p>Use the repository's <code>.dev/bin/dev</code> commands for CI-equivalent installation and checks where documented. Do not weaken updater signing or security gates to make a local build pass.</p>
+      <figure class="docs-figure"><div class="docs-placeholder"><div><strong>Screenshot needed: 12-dev-first-run.png</strong><span>Terminal with pnpm tauri dev ready, next to a disposable Harbor development window.</span></div></div><figcaption>Use a disposable identity and redact home-directory paths if the screenshot will be public.</figcaption></figure>
+
+      <h2 id="profiles">Run isolated profiles</h2>
+      <p>Most production behavior requires at least two real app profiles. Unit tests and mocked stores do not prove identity, transport, persistence, or WebRTC convergence.</p>
+      <ol class="docs-steps"><li>Create separate data directories and profile names for each app instance.</li><li>Create disposable identities in both profiles.</li><li>Start networking and exchange contact links.</li><li>Exercise the workflow from both perspectives.</li><li>Record timestamps and observable state transitions without recording secrets.</li></ol>
+      <p>Use the repository validation guides for the exact environment variables and evidence requirements:</p><ul><li><code>docs/voice-call-e2e-validation.md</code></li><li><code>docs/video-group-call-validation.md</code></li><li><code>docs/wall-sync-multi-profile-validation.md</code></li></ul>
+      <figure class="docs-figure"><div class="docs-placeholder"><div><strong>Screenshot needed: 13-two-profile-lab.png</strong><span>Two app windows labeled dev-a and dev-b, both connected, with no personal identities.</span></div></div><figcaption>A useful development screenshot makes each profile and network state unambiguous.</figcaption></figure>
+
+      <h2 id="relay">Relay and TURN operations</h2>
+      <div class="docs-callout warning"><strong>Do not conflate the relays:</strong> the Harbor libp2p relay carries application traffic and call signaling. A TURN server relays WebRTC media when direct ICE connectivity fails.</div>
+      <pre><code>cargo build --manifest-path relay-server/Cargo.toml
+HARBOR_RELAY_DB=/tmp/harbor-relay.sqlite \
+  cargo run --manifest-path relay-server/Cargo.toml -- \
+  --listen /ip4/127.0.0.1/tcp/4001</code></pre>
+      <p>Copy the printed relay multiaddress into each disposable profile. For strict-NAT media tests, configure an operator-managed TURN service in Settings, Calls. Never commit or screenshot TURN credentials.</p>
+      <figure class="docs-figure"><div class="docs-placeholder"><div><strong>Screenshot needed: 14-network-operator-view.png</strong><span>Harbor Network settings with a redacted relay multiaddress and healthy state.</span></div></div><figcaption>Redact private hosts and credentials. Peer IDs are public identifiers but should still use disposable test profiles.</figcaption></figure>
+
+      <h2 id="tests">Run validation gates</h2>
+      <pre><code>pnpm exec tsc --noEmit
+pnpm exec vitest run
+cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
+cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets -- -D warnings
+cargo test --manifest-path src-tauri/Cargo.toml --all-targets
+cargo test --manifest-path relay-server/Cargo.toml</code></pre>
+      <p>Also run the focused manual scenario for the capability you changed. A calling change needs two-profile media evidence. A wall permission change needs authorized and unauthorized consumers. A release change needs packaged artifacts, updater metadata, and platform smoke tests.</p>
+
+      <h2 id="workflow">Contribution workflow</h2>
+      <p><code>main</code> is protected production code. Direct pushes, force-pushes, and deletion are blocked.</p>
+      <pre><code>git switch main
+git pull --ff-only
+git switch -c feature/short-description
+
+# make and validate a focused change
+git add path/to/intended/files
+git commit -m "Describe the focused change"
+git push -u origin feature/short-description
+gh pr create --draft --fill</code></pre>
+      <ol class="docs-steps"><li>Keep one coherent concern per branch.</li><li>Explain user impact, root cause, validation, and known limitations in the PR.</li><li>Use the preview build for UI review.</li><li>Resolve review conversations and keep the branch current with main.</li><li>Merge only after every required check is green.</li></ol>
+
+      <h2 id="release">Release discipline</h2>
+      <ul><li>Production releases originate from protected, reviewed history.</li><li>Version and updater metadata must agree.</li><li>Every updater artifact requires a nonempty signature and public URL.</li><li>Windows, macOS Intel, macOS Apple Silicon, and Linux packaging must complete before platform claims are published.</li><li>Do not replace live-network evidence with screenshots or unit tests.</li></ul>
+      <p>See <code>docs/release-gates-calls-wall-sync.md</code> and <code>docs/demo-operations.md</code> in the Harbor repository for current operational gates.</p>
+
+      <h2 id="diagnostics">Share diagnostics safely</h2>
+      <h3>Useful in a bug report</h3><ul><li>Harbor version, operating system, architecture, and installation type.</li><li>The exact workflow step and expected versus actual behavior.</li><li>Connection and call state names with approximate timestamps.</li><li>Disposable profile peer IDs when necessary to correlate a test.</li><li>Minimal logs reviewed for private content.</li></ul>
+      <h3>Never publish</h3><ul><li>Passphrases, private keys, identity exports, or database files.</li><li>TURN passwords or long-lived infrastructure credentials.</li><li>Private message bodies, media, or contact links from real users.</li><li>Unredacted IP addresses unless explicitly required in a private security report.</li></ul>
+      <div class="docs-next"><h3>Start with a bounded change</h3><p>Read <a href="https://github.com/Bakobiibizo/harbor/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>, select an issue with a clear acceptance test, and open a draft PR early. Security vulnerabilities should be reported privately rather than filed with exploit details in a public issue.</p></div>
+    </article>
+  </main>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Harbor User Guide | Get started safely</title>
+  <meta name="description" content="A friendly step-by-step guide to installing Harbor, creating an identity, adding contacts, messaging, calling, and protecting your data.">
+  <link rel="canonical" href="https://social-harbor.com/docs/">
+  <link rel="icon" type="image/png" href="../assets/harbor-icon-dark-alpha.png">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/docs.css">
+</head>
+<body>
+  <a class="skip-link" href="#guide">Skip to guide</a>
+  <header class="site-header"><div class="container nav-row"><a class="brand" href="/"><img src="../assets/harbor-icon-dark-alpha.png" alt="" width="48" height="34"><span>Harbor</span></a><nav class="site-nav" aria-label="Documentation navigation"><a href="/">Home</a><a href="/docs/" aria-current="page">User guide</a><a href="/docs/developers/">For developers</a></nav></div></header>
+  <main class="container docs-shell" id="guide">
+    <aside class="docs-sidebar" aria-label="On this page"><strong>Get started</strong><a href="#before">Before you begin</a><a href="#install">Install Harbor</a><a href="#identity">Create your identity</a><a href="#network">Connect to the network</a><a href="#contacts">Add a contact</a><a href="#messages">Send a message</a><a href="#calls">Make a call</a><a href="#wall">Use Wall and Feed</a><a href="#safety">Privacy and backup</a><a href="#troubleshooting">Troubleshooting</a></aside>
+    <article class="docs-content">
+      <span class="eyebrow">Harbor user guide</span><h1>Your first private conversation</h1>
+      <p class="docs-lede">This guide is for anyone using Harbor for the first time. You do not need to understand peer-to-peer networking or cryptography. Plan for about ten minutes, plus a friend who can install Harbor on another device.</p>
+      <div class="docs-callout"><strong>What you will accomplish:</strong> install Harbor, create a local identity, connect to the network, add one trusted contact, send a message, and make a test call.</div>
+
+      <h2 id="before">Before you begin</h2>
+      <ul><li>Use Windows x64, macOS on Apple Silicon or Intel, or x64 Linux.</li><li>Choose a passphrase you can remember and store safely.</li><li>For the easiest first test, put both devices on the same network.</li><li>Only accept contact links from people you recognize.</li></ul>
+      <div class="docs-callout warning"><strong>No account recovery:</strong> Harbor stores your identity on your device. If you lose both your passphrase and your exported identity backup, nobody can restore it for you.</div>
+
+      <h2 id="install">1. Install Harbor</h2>
+      <ol class="docs-steps"><li>Open the <a href="/#beta">Harbor download section</a>.</li><li>Choose the package matching your operating system.</li><li>Open the downloaded installer or application package.</li><li>If your operating system displays a beta-app warning, confirm that the file came from the official Harbor GitHub release before continuing.</li></ol>
+      <figure class="docs-figure"><div class="docs-placeholder"><div><strong>Screenshot needed: 01-download-page.png</strong><span>Browser showing the Harbor download section with the correct platform button highlighted.</span></div></div><figcaption>Choose the package for your computer. Do not download Harbor from third-party mirrors.</figcaption></figure>
+
+      <h2 id="identity">2. Create your identity</h2>
+      <ol class="docs-steps"><li>Open Harbor and choose to create a new identity.</li><li>Enter the display name your contacts should see.</li><li>Add a bio if you want. You can change it later.</li><li>Create a strong passphrase with at least eight characters.</li><li>Confirm the passphrase and finish creating the identity.</li></ol>
+      <figure class="docs-figure"><div class="docs-placeholder"><div><strong>Screenshot needed: 02-create-identity.png</strong><span>Fresh first-launch identity form with example values and no real private information.</span></div></div><figcaption>Your display name is shared. Your passphrase protects private keys stored on this device.</figcaption></figure>
+      <div class="docs-callout warning"><strong>Never screenshot:</strong> passphrases, identity backup contents, private keys, TURN credentials, or complete diagnostic logs containing personal data.</div>
+
+      <h2 id="network">3. Connect to the network</h2>
+      <ol class="docs-steps"><li>Open <strong>Network</strong> from the sidebar.</li><li>Select <strong>Start Network</strong>.</li><li>Wait for the status to show that networking is active.</li><li>If you are testing at home, keep both Harbor devices on the same LAN for automatic discovery.</li></ol>
+      <figure class="docs-figure"><div class="docs-placeholder"><div><strong>Screenshot needed: 03-network-connected.png</strong><span>Network page after Start Network, including the active status and community relay state.</span></div></div><figcaption>Harbor must be running and connected before it can create a usable contact link.</figcaption></figure>
+
+      <h2 id="contacts">4. Add a trusted contact</h2>
+      <h3>Share your link</h3><ol class="docs-steps"><li>On the Network page, select <strong>Share My Contact Link</strong>.</li><li>Send the copied link through a channel where you already know the recipient.</li><li>Ask the recipient to open the link and choose <strong>Open in Harbor</strong>.</li><li>Review the displayed name and peer information before accepting.</li></ol>
+      <figure class="docs-figure"><div class="docs-placeholder"><div><strong>Screenshot needed: 04-share-contact-link.png</strong><span>Network page focused on Share My Contact Link and its success confirmation.</span></div></div><figcaption>A contact link contains public identity and reachable-address information. It does not contain your passphrase or private key.</figcaption></figure>
+      <figure class="docs-figure"><div class="docs-placeholder"><div><strong>Screenshot needed: 05-accept-contact.png</strong><span>Add-contact handoff and Harbor confirmation screen using disposable demo identities.</span></div></div><figcaption>Verify the person through another channel if a contact request is unexpected.</figcaption></figure>
+
+      <h2 id="messages">5. Send your first message</h2>
+      <ol class="docs-steps"><li>Open <strong>Messages</strong>.</li><li>Select your new contact.</li><li>Type a short test message and send it.</li><li>Ask your contact to reply so both sides confirm the conversation works.</li></ol>
+      <figure class="docs-figure"><div class="docs-placeholder"><div><strong>Screenshot needed: 06-first-conversation.png</strong><span>Two or three harmless demo messages showing sent and received states.</span></div></div><figcaption>Conversation history is stored locally on each participant's device.</figcaption></figure>
+
+      <h2 id="calls">6. Make a voice or video call</h2>
+      <ol class="docs-steps"><li>Open the conversation with your contact.</li><li>Select the phone or video button.</li><li>The recipient accepts the incoming call.</li><li>Allow microphone or camera access when the operating system asks.</li><li>Confirm both sides reach the connected state, then hang up normally.</li></ol>
+      <figure class="docs-figure"><div class="docs-placeholder"><div><strong>Screenshot needed: 07-incoming-call.png</strong><span>Incoming call screen with disposable contact names.</span></div></div><figcaption>The recipient can accept or decline every call.</figcaption></figure>
+      <figure class="docs-figure"><div class="docs-placeholder"><div><strong>Screenshot needed: 08-connected-group-call.png</strong><span>Connected group call with three or four disposable participants and no private surroundings.</span></div></div><figcaption>The current group-call design supports up to four total participants.</figcaption></figure>
+
+      <h2 id="wall">7. Use Wall and Feed</h2>
+      <ol class="docs-steps"><li>Open <strong>Wall</strong> to create a post.</li><li>Choose <strong>Public</strong> or <strong>Contacts only</strong> before posting.</li><li>Use the preview controls to check what guests and contacts can see.</li><li>Open <strong>Feed</strong> to view posts shared by your contacts.</li></ol>
+      <figure class="docs-figure"><div class="docs-placeholder"><div><strong>Screenshot needed: 09-wall-visibility.png</strong><span>Wall composer with the visibility selector open and harmless example content.</span></div></div><figcaption>Review visibility before posting. Public and contacts-only are different audiences.</figcaption></figure>
+
+      <h2 id="safety">8. Protect your identity and privacy</h2>
+      <div class="docs-grid"><div class="docs-card"><h3>Export a backup</h3><p>Open Settings, then Security. Export your identity to encrypted storage and keep the backup separate from your computer.</p></div><div class="docs-card"><h3>Review permissions</h3><p>Only grant Chat, Call, or Wall access to people you trust. Remove access when a relationship or device changes.</p></div><div class="docs-card"><h3>Understand metadata</h3><p>Messages and call media are encrypted, but peers and relay operators may observe connection timing, IP addresses, and traffic volume.</p></div><div class="docs-card"><h3>Keep Harbor updated</h3><p>Install signed updates promptly. New releases may include security, reliability, and network compatibility fixes.</p></div></div>
+      <figure class="docs-figure"><div class="docs-placeholder"><div><strong>Screenshot needed: 10-security-backup.png</strong><span>Settings, Security section showing backup controls without revealing a backup or credential.</span></div></div><figcaption>Test that you can locate your backup, but never publish its contents.</figcaption></figure>
+
+      <h2 id="troubleshooting">Troubleshooting</h2>
+      <h3>My contact link does not work</h3><p>Start networking first, reconnect to the community relay, copy a fresh contact link, and resend it without altering the URL.</p>
+      <h3>We cannot find each other</h3><p>Confirm both apps show networking as active. Try the same LAN first. If remote peers still cannot connect, capture the Network status without private credentials and report an issue.</p>
+      <h3>Messages work but calls do not</h3><p>Check operating-system microphone and camera permissions. Calls across strict NAT networks may require a configured TURN service even when Harbor messaging works.</p>
+      <h3>The app is locked</h3><p>Enter the passphrase for that local identity. Harbor cannot reset a forgotten passphrase. Restore an exported identity only if you have its correct passphrase.</p>
+      <div class="docs-next"><h3>Need deeper help?</h3><p>Technical users and operators can continue to <a href="/docs/developers/">Harbor for developers</a>. Bugs can be reported through the <a href="https://github.com/Bakobiibizo/harbor/issues">public issue tracker</a>. Never attach secrets or private conversation content.</p></div>
+    </article>
+  </main>
+</body>
+</html>
