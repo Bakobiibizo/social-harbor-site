@@ -65,7 +65,7 @@
   // and split('/add-friend/') captures 'index.html' instead of a base64 string.
 
 
-  // LOCAL TESTING ONLY — query parameter fallback.
+  // LOCAL TESTING ONLY: query parameter fallback.
   // Python's static server can't route /add-friend/<contactString> to this file,
   // so during local development use ?c=<contactString> instead:
   //   http://localhost:8080/add-friend/index.html?c=eyJ...
@@ -100,7 +100,7 @@
     document.getElementById('peer-id').textContent = contact.peerId;
 
     // Update page title and OG title with the real contact name
-    document.title = contact.displayName + ' wants to connect — Harbor';
+    document.title = contact.displayName + ' wants to connect | Harbor';
 
     // Show valid state
     stateValid.classList.remove('hidden');
@@ -126,12 +126,12 @@
       // Construct the deep link URL
       const deepLink = 'harbor://add-friend/' + contact.raw;
 
-      // Navigate to the deep link — if Harbor is installed the OS handles it
+      // Navigate to the deep link. If Harbor is installed, the OS handles it.
       window.location.href = deepLink;
 
       // Start the fallback timer
       const fallbackTimer = setTimeout(function () {
-        // Page is still visible — Harbor likely isn't installed
+        // The page is still visible, so Harbor likely is not installed.
         if (!document.hidden) {
           fallbackMsg.style.display = 'block';
         }
