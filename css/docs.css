@@ -10,13 +10,13 @@
 .docs-content p, .docs-content li { color: var(--muted); }
 .docs-content li + li { margin-top: 8px; }
 .docs-lede { font-size: 1.16rem; line-height: 1.65; }
-.docs-callout { margin: 24px 0; padding: 18px 20px; border-left: 4px solid var(--blue); border-radius: 0 8px 8px 0; background: #eef6ff; }
-.docs-callout.warning { border-color: var(--coral); background: #fff3ef; }
+.docs-callout { margin: 24px 0; padding: 18px 20px; border-left: 4px solid var(--blue); border-radius: 0 8px 8px 0; background: var(--surface); }
+.docs-callout.warning { border-color: var(--orange); background: var(--surface); }
 .docs-callout strong { color: var(--ink); }
 .docs-steps { padding-left: 22px; }
 .docs-steps > li { padding-left: 8px; }
 .docs-figure { margin: 24px 0 34px; }
-.docs-placeholder { min-height: 260px; display: grid; place-items: center; padding: 28px; border: 2px dashed #9fb3c8; border-radius: 10px; background: linear-gradient(135deg, #f8fbff, #eef4fa); text-align: center; }
+.docs-placeholder { min-height: 260px; display: grid; place-items: center; padding: 28px; border: 2px dashed var(--surface-raised); border-radius: 10px; background: linear-gradient(135deg, var(--surface), var(--paper)); text-align: center; }
 .docs-placeholder strong, .docs-placeholder span { display: block; }
 .docs-placeholder strong { color: var(--blue-dark); }
 .docs-placeholder span { margin-top: 8px; color: var(--muted); font-size: .82rem; }
