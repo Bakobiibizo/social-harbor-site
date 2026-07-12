@@ -19,12 +19,14 @@
 
   try {
     if (!patterns[platform]) throw new Error('Choose a supported platform from the download page.');
-    const metadata = await fetch('https://github.com/Bakobiibizo/harbor/releases/latest/download/latest.json', { cache: 'no-store' });
-    if (!metadata.ok) throw new Error('Latest release metadata is unavailable.');
-    const { version } = await metadata.json();
-    const release = await fetch(`https://api.github.com/repos/Bakobiibizo/harbor/releases/tags/v${encodeURIComponent(version)}`);
-    if (!release.ok) throw new Error('Latest release assets are unavailable.');
-    const data = await release.json();
+    const releases = await fetch('https://api.github.com/repos/Bakobiibizo/harbor/releases?per_page=20', { cache: 'no-store' });
+    if (!releases.ok) throw new Error('Latest release assets are unavailable.');
+    const published = await releases.json();
+    const data = published.find(({ draft, tag_name, assets }) =>
+      !draft && tag_name !== 'updater-channel' && assets.some(({ name }) => patterns[platform].test(name))
+    );
+    if (!data) throw new Error(`No published ${platform} build is currently available.`);
+    const version = data.tag_name.replace(/^v/, '');
     const asset = data.assets.find(({ name }) => patterns[platform].test(name));
     if (!asset) throw new Error(`No ${platform} build is available in Harbor ${version}.`);
     status.textContent = `Downloading Harbor ${version} for ${platform}…`;
