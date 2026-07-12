@@ -11,3 +11,8 @@ for (const page of ['index.html', 'add-friend/index.html', 'privacy/index.html']
     assert.doesNotMatch(html, /<script[^>]+src="https?:\/\//);
   });
 }
+
+test('download page loads its resolver from the clean URL', () => {
+  const html = fs.readFileSync('download/index.html', 'utf8');
+  assert.match(html, /<script src="\/download\/resolver\.js"><\/script>/);
+});
