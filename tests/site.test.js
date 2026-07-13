@@ -16,3 +16,10 @@ test('download page loads its resolver from the clean URL', () => {
   const html = fs.readFileSync('download/index.html', 'utf8');
   assert.match(html, /<script src="\/download\/resolver\.js"><\/script>/);
 });
+
+test('contact invite paths rewrite to the clean handoff page', () => {
+  const config = JSON.parse(fs.readFileSync('vercel.json', 'utf8'));
+  assert.deepEqual(config.rewrites, [
+    { source: '/add-friend/:contact', destination: '/add-friend' }
+  ]);
+});
