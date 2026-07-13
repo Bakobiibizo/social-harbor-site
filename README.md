@@ -41,8 +41,11 @@ the same suite for every push and pull request.
 
 Import this repository into Vercel as a static site. No build command or environment variables are required.
 
-`vercel.json` provides the contact-link rewrite, strict transport and content
-security headers, and asset caching. Contact pages are marked `noindex` because
+`vercel.json` rewrites `/add-friend/<contact>` to the clean `/add-friend` handoff
+page. The destination intentionally omits `index.html` because Vercel's
+`cleanUrls` processing removes that suffix before rewrites are resolved. The
+configuration also provides strict transport and content security headers and
+asset caching. Contact pages are marked `noindex` because
 their URLs contain intentionally shared peer connection data.
 
 This repository intentionally diverges from its upstream: it is the maintained

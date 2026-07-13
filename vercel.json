@@ -2,7 +2,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/add-friend/:path*", "destination": "/add-friend/index.html" }
+    { "source": "/add-friend/:contact", "destination": "/add-friend" }
   ],
   "headers": [
     {
